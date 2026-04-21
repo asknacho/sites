@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disneyland París · Septiembre 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rausch: #ff385c;
+  --canvas: #ffffff;
+  --cloud: #f7f7f7;
+  --hairline: #dddddd;
+  --ink: #222222;
+  --charcoal: #3f3f3f;
+  --ash: #6a6a6a;
+  --magic: #7c3aed;
+  --magic-light: #f5f0ff;
+  --gold: #d97706;
+  --gold-light: #fffbeb;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── NAV ─── */
+.nav {
+  height: 80px;
+  background: var(--canvas);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-brand { font-size: 18px; font-weight: 800; color: var(--magic); letter-spacing: -0.3px; }
+.nav-sub { font-size: 13px; font-weight: 500; color: var(--ash); }
+
+/* ─── HERO ─── */
+.hero-img {
+  width: 100%; height: 480px;
+  object-fit: cover; object-position: center 40%;
+  display: block;
+}
+
+/* ─── CONTAINERS ─── */
+.wrap { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+
+/* ─── INTRO ─── */
+.intro { padding: 48px 24px 40px; max-width: 820px; margin: 0 auto; border-bottom: 1px solid var(--hairline); }
+.intro-eyebrow { font-size: 12px; font-weight: 600; color: var(--ash); letter-spacing: 0.32px; text-transform: uppercase; margin-bottom: 12px; }
+.intro-title { font-size: 28px; font-weight: 800; color: var(--ink); line-height: 1.3; letter-spacing: -0.5px; margin-bottom: 16px; }
+.intro-body { font-size: 16px; font-weight: 500; color: var(--charcoal); line-height: 1.65; max-width: 640px; }
+
+/* ─── SECTION HEADERS ─── */
+.section { padding: 48px 0; border-bottom: 1px solid var(--hairline); }
+.section-eyebrow { font-size: 12px; font-weight: 600; color: var(--ash); letter-spacing: 0.32px; text-transform: uppercase; margin-bottom: 8px; }
+.section-title { font-size: 22px; font-weight: 700; color: var(--ink); line-height: 1.2; letter-spacing: -0.44px; margin-bottom: 24px; }
+
+/* ─── TRIP STATS ─── */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); border-radius: 14px; overflow: hidden; margin-bottom: 32px; }
+.stat { background: var(--canvas); padding: 20px 16px; text-align: center; }
+.stat-num { font-size: 28px; font-weight: 800; color: var(--magic); letter-spacing: -0.5px; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 12px; font-weight: 500; color: var(--ash); }
+
+/* ─── COST SECTION ─── */
+.cost-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+.cost-card { border: 1px solid var(--hairline); border-radius: 14px; overflow: hidden; }
+.cost-card-header { padding: 16px 20px; background: var(--cloud); border-bottom: 1px solid var(--hairline); }
+.cost-card-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+.cost-card-sub { font-size: 12px; font-weight: 500; color: var(--ash); margin-top: 2px; }
+.cost-rows { padding: 0; }
+.cost-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-bottom: 1px solid var(--hairline); }
+.cost-row:last-child { border-bottom: none; }
+.cost-row-label { font-size: 14px; font-weight: 500; color: var(--charcoal); }
+.cost-row-label small { display: block; font-size: 12px; color: var(--ash); margin-top: 1px; }
+.cost-row-value { font-size: 14px; font-weight: 600; color: var(--ink); }
+.cost-row-value.free { color: #16a34a; }
+.cost-row-value.total { font-size: 16px; font-weight: 800; color: var(--magic); }
+
+/* ─── HOTEL TABLE ─── */
+.hotel-table { width: 100%; border: 1px solid var(--hairline); border-radius: 14px; overflow: hidden; border-collapse: collapse; }
+.hotel-table th { background: var(--cloud); padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 600; color: var(--ash); letter-spacing: 0.32px; text-transform: uppercase; border-bottom: 1px solid var(--hairline); }
+.hotel-table td { padding: 14px 16px; font-size: 14px; font-weight: 500; color: var(--charcoal); border-bottom: 1px solid var(--hairline); vertical-align: middle; }
+.hotel-table tr:last-child td { border-bottom: none; }
+.hotel-table tr.recommended { background: var(--magic-light); }
+.hotel-name { font-weight: 600; color: var(--ink); }
+.hotel-name small { display: block; font-size: 12px; font-weight: 500; color: var(--ash); margin-top: 1px; }
+.badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.2px; }
+.badge-magic { background: var(--magic-light); color: var(--magic); }
+.badge-gold { background: var(--gold-light); color: var(--gold); }
+.badge-green { background: #f0fdf4; color: #16a34a; }
+
+/* ─── TOTAL BUDGET BOX ─── */
+.budget-box { border: 1px solid var(--hairline); border-radius: 14px; overflow: hidden; margin-top: 24px; }
+.budget-box-header { background: var(--magic); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+.budget-box-title { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.85); }
+.budget-box-total { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+.budget-rows { padding: 0; }
+.budget-row { display: flex; justify-content: space-between; padding: 12px 24px; border-bottom: 1px solid var(--hairline); font-size: 14px; }
+.budget-row:last-child { border-bottom: none; }
+.budget-row span:first-child { font-weight: 500; color: var(--ash); }
+.budget-row span:last-child { font-weight: 600; color: var(--ink); }
+.budget-note { padding: 12px 24px; font-size: 12px; color: var(--ash); font-weight: 500; background: var(--cloud); border-top: 1px solid var(--hairline); }
+
+/* ─── ITINERARY ─── */
+.day-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.day-pill { background: var(--magic); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; }
+.day-title { font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px; }
+.tl-item { display: grid; grid-template-columns: 64px 1px 1fr; gap: 0 20px; padding-bottom: 28px; }
+.tl-time { font-size: 13px; font-weight: 600; color: var(--magic); text-align: right; padding-top: 3px; line-height: 1.3; }
+.tl-time small { display: block; font-size: 10px; color: var(--ash); font-weight: 500; }
+.tl-line-col { display: flex; flex-direction: column; align-items: center; }
+.tl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--magic); margin-top: 5px; flex-shrink: 0; }
+.tl-connector { width: 1px; flex: 1; background: var(--hairline); min-height: 20px; }
+.tl-item:last-child .tl-connector { display: none; }
+.tl-body { padding-bottom: 4px; }
+.tl-tag { display: inline-block; font-size: 10px; font-weight: 700; color: var(--ash); border: 1px solid var(--hairline); border-radius: 4px; padding: 1px 7px; margin-bottom: 5px; letter-spacing: 0.2px; text-transform: uppercase; }
+.tl-tag.miranda { border-color: #fbcfe8; color: #be185d; background: #fdf2f8; }
+.tl-name { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.tl-desc { font-size: 13px; font-weight: 500; color: var(--ash); line-height: 1.5; max-width: 500px; }
+
+/* ─── MIRANDA GRAPH ─── */
+.graph-section { background: var(--cloud); border-radius: 14px; padding: 32px; border: 1px solid var(--hairline); margin-top: 0; }
+.graph-title { font-size: 18px; font-weight: 800; color: var(--ink); letter-spacing: -0.3px; margin-bottom: 4px; }
+.graph-sub { font-size: 13px; font-weight: 500; color: var(--ash); margin-bottom: 32px; }
+.graph-bars { display: flex; flex-direction: column; gap: 20px; }
+.graph-row { display: flex; flex-direction: column; gap: 6px; }
+.graph-label { display: flex; justify-content: space-between; align-items: baseline; }
+.graph-label-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+.graph-label-value { font-size: 13px; font-weight: 700; }
+.bar-track { height: 36px; background: var(--hairline); border-radius: 8px; overflow: visible; position: relative; }
+.bar-fill { height: 100%; border-radius: 8px; display: flex; align-items: center; padding: 0 12px; font-size: 16px; white-space: nowrap; overflow: visible; position: relative; transition: none; }
+.bar-before { background: #e5e7eb; width: 38%; }
+.bar-during { background: linear-gradient(90deg, #f59e0b, #f97316); width: 88%; }
+.bar-after { background: linear-gradient(90deg, #7c3aed, #ec4899, #f43f5e); width: 100%; position: relative; }
+.bar-after::after {
+  content: '💥 GRÁFICO ROTO';
+  position: absolute;
+  right: -130px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--rausch);
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+}
+.graph-disclaimer { margin-top: 24px; padding: 12px 16px; background: #fff; border: 1px solid var(--hairline); border-radius: 8px; font-size: 11px; font-weight: 500; color: var(--ash); line-height: 1.5; }
+.graph-disclaimer strong { color: var(--ink); }
+
+/* ─── TIPS ─── */
+.tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.tip-card { border: 1px solid var(--hairline); border-radius: 14px; padding: 20px; }
+.tip-icon { font-size: 24px; margin-bottom: 10px; }
+.tip-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.tip-body { font-size: 13px; font-weight: 500; color: var(--ash); line-height: 1.5; }
+
+/* ─── FOOTER ─── */
+footer { background: var(--cloud); border-top: 1px solid var(--hairline); padding: 48px 24px; text-align: center; }
+.footer-emoji { font-size: 32px; margin-bottom: 12px; }
+.footer-title { font-size: 22px; font-weight: 800; color: var(--ink); letter-spacing: -0.44px; margin-bottom: 8px; }
+.footer-sub { font-size: 14px; font-weight: 500; color: var(--ash); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 640px) {
+  .hero-img { height: 260px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .cost-grid { grid-template-columns: 1fr; }
+  .tips-grid { grid-template-columns: 1fr; }
+  .hotel-table th:nth-child(3), .hotel-table td:nth-child(3) { display: none; }
+  .bar-after::after { display: none; }
+  .wrap { padding: 0 16px; }
+  .intro { padding: 32px 16px; }
+  .section { padding: 32px 0; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-brand">✨ Disneyland París</span>
+  <span class="nav-sub">Septiembre 2026</span>
+</nav>
+
+<img class="hero-img"
+  src="https://images.unsplash.com/photo-1548438294-1ad5d5f4f063?w=1600&q=85"
+  alt="Castillo de Disneyland París">
+
+<div class="intro">
+  <p class="intro-eyebrow">Una familia · Tres días · Magia sin límites</p>
+  <h1 class="intro-title">El primer Disney de Miranda</h1>
+  <p class="intro-body">
+    Nosotros necesitamos la excusa. Miranda necesita conocer a Mickey.
+    Tres días en el parque más mágico de Europa, con la mejor compañía posible —
+    y una niña de dos años que todavía no sabe lo que le viene encima.
+  </p>
+</div>
+
+<div class="wrap">
+
+  <!-- ─── STATS ─── -->
+  <div class="section">
+    <p class="section-eyebrow">El viaje de un vistazo</p>
+    <h2 class="section-title">Septiembre 2026, París</h2>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">días en el parque</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2</div>
+        <div class="stat-label">adultos felices</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-label">bebé de 2 años</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">€0</div>
+        <div class="stat-label">entrada Miranda 🎉</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── COSTES ─── -->
+  <div class="section">
+    <p class="section-eyebrow">Resumen económico</p>
+    <h2 class="section-title">¿Cuánto nos va a costar la magia?</h2>
+
+    <div class="cost-grid">
+      <!-- ENTRADAS -->
+      <div class="cost-card">
+        <div class="cost-card-header">
+          <div class="cost-card-title">🎟️ Entradas al parque</div>
+          <div class="cost-card-sub">3 días · 2 parques · Septiembre 2026</div>
+        </div>
+        <div class="cost-rows">
+          <div class="cost-row">
+            <div class="cost-row-label">Adulto × 2<small>Ticket 3 días 2 parques</small></div>
+            <div class="cost-row-value">~€270 / persona</div>
+          </div>
+          <div class="cost-row">
+            <div class="cost-row-label">Miranda (2 años)<small>Menores de 3 años</small></div>
+            <div class="cost-row-value free">GRATIS ✨</div>
+          </div>
+          <div class="cost-row">
+            <div class="cost-row-label"><strong>Total entradas</strong></div>
+            <div class="cost-row-value total">~€540</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXTRAS -->
+      <div class="cost-card">
+        <div class="cost-card-header">
+          <div class="cost-card-title">🍽️ Comidas y extras</div>
+          <div class="cost-card-sub">Estimación 3 días en parque</div>
+        </div>
+        <div class="cost-rows">
+          <div class="cost-row">
+            <div class="cost-row-label">Comidas en el parque<small>Restaurantes Disney, ~€25/adulto/día</small></div>
+            <div class="cost-row-value">~€150</div>
+          </div>
+          <div class="cost-row">
+            <div class="cost-row-label">Meriendas y snacks<small>Palomitas, helados, churros…</small></div>
+            <div class="cost-row-value">~€60</div>
+          </div>
+          <div class="cost-row">
+            <div class="cost-row-label">Merchandising Miranda<small>La peluche de Minnie es obligatoria</small></div>
+            <div class="cost-row-value">~€40</div>
+          </div>
+          <div class="cost-row">
+            <div class="cost-row-label"><strong>Total extras</strong></div>
+            <div class="cost-row-value total">~€250</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOTELES -->
+    <p class="section-eyebrow" style="margin-top: 40px; margin-bottom: 8px;">🏰 Hoteles Disney</p>
+    <h3 style="font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 16px; letter-spacing: -0.3px;">3 noches · habitación familiar</h3>
+    <table class="hotel-table">
+      <thead>
+        <tr>
+          <th>Hotel</th>
+          <th>Estilo</th>
+          <th>Distancia al parque</th>
+          <th>Precio estimado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="hotel-name">Hotel Santa Fe</div>
+            <div style="margin-top: 4px;"><span class="badge badge-green">Mejor precio</span></div>
+          </td>
+          <td style="font-size: 13px;">Ruta 66 americano</td>
+          <td style="font-size: 13px;">10 min (lanzadera)</td>
+          <td style="font-weight: 700; color: var(--ink);">~€450 total</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="hotel-name">Hotel Cheyenne</div>
+          </td>
+          <td style="font-size: 13px;">Far West / Toy Story</td>
+          <td style="font-size: 13px;">15 min a pie</td>
+          <td style="font-weight: 700; color: var(--ink);">~€480 total</td>
+        </tr>
+        <tr class="recommended">
+          <td>
+            <div class="hotel-name">Newport Bay Club</div>
+            <div style="margin-top: 4px;"><span class="badge badge-magic">⭐ Recomendado</span></div>
+          </td>
+          <td style="font-size: 13px;">Nueva Inglaterra náutico</td>
+          <td style="font-size: 13px;">5 min a pie</td>
+          <td style="font-weight: 700; color: var(--magic);">~€660 total</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="hotel-name">Sequoia Lodge</div>
+          </td>
+          <td style="font-size: 13px;">Parque nacional americano</td>
+          <td style="font-size: 13px;">5 min a pie</td>
+          <td style="font-weight: 700; color: var(--ink);">~€720 total</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="hotel-name">Disneyland Hotel</div>
+            <div style="margin-top: 4px;"><span class="badge badge-gold">👑 Lujo total</span></div>
+          </td>
+          <td style="font-size: 13px;">Victorian · Reabierto 2024</td>
+          <td style="font-size: 13px;">Sobre la entrada principal</td>
+          <td style="font-weight: 700; color: var(--gold);">~€2.100 total</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- PRESUPUESTO TOTAL -->
+    <div class="budget-box">
+      <div class="budget-box-header">
+        <span class="budget-box-title">Presupuesto total estimado</span>
+        <span class="budget-box-total">~€1.450 – €2.890</span>
+      </div>
+      <div class="budget-rows">
+        <div class="budget-row"><span>Entradas (2 adultos, Miranda gratis)</span><span>~€540</span></div>
+        <div class="budget-row"><span>Hotel 3 noches (Santa Fe → Newport)</span><span>~€450 – €660</span></div>
+        <div class="budget-row"><span>Vuelos Madrid–París CDG (estimado)</span><span>~€200 – €400</span></div>
+        <div class="budget-row"><span>Comidas, snacks y merchandising Miranda</span><span>~€250</span></div>
+      </div>
+      <div class="budget-note">
+        💡 Precios orientativos para septiembre 2026. Las entradas son más baratas reservadas con antelación en disneyland.paris. Miranda viaja gratis en avión (menos de 2 años = regazo) y entra gratis al parque.
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── ITINERARIO ─── -->
+  <div class="section">
+    <p class="section-eyebrow">Plan de batalla</p>
+    <h2 class="section-title">3 días con una de 2 años — estrategia</h2>
+
+    <!-- DÍA 1 -->
+    <div style="margin-bottom: 40px;">
+      <div class="day-header">
+        <span class="day-pill">Día 1</span>
+        <span class="day-title">Llegada y Fantasyland</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">Mañana</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">vuelo</span>
+          <div class="tl-name">Vuelo Madrid → París CDG</div>
+          <p class="tl-desc">Vuelo temprano para aprovechar el día. Miranda en regazo — lleva snacks y los AirPods.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">12:00</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">check-in</span>
+          <div class="tl-name">Llegada al hotel Disney</div>
+          <p class="tl-desc">Check-in, deja el equipaje aunque no den habitación, y a los parques directamente.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">14:00</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag miranda">⭐ Miranda</span>
+          <div class="tl-name">It's a Small World</div>
+          <p class="tl-desc">La primera atracción de Miranda tiene que ser esta. Sin altura mínima, música pegadiza, colores brutales. Nivel de felicidad estimado: 300%.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">15:30</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag miranda">⭐ Miranda</span>
+          <div class="tl-name">Encuentro con Mickey Mouse</div>
+          <p class="tl-desc">Meet &amp; greet en Fantasyland. Reservar con antelación — la cara de Miranda cuando vea a Mickey en persona no tiene precio.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">17:00</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">siesta</span>
+          <div class="tl-name">Siesta estratégica</div>
+          <p class="tl-desc">Vuelta al hotel, siesta de Miranda (y vuestra). Fundamental para sobrevivir 3 días. Sin siesta no hay magia.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">19:30</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">cena</span>
+          <div class="tl-name">Cena y espectáculo nocturno</div>
+          <p class="tl-desc">Cena en el parque y quedarse para ver las luces del castillo si Miranda aguanta despierta. Si no, mañana hay otro día.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DÍA 2 -->
+    <div style="margin-bottom: 40px;">
+      <div class="day-header">
+        <span class="day-pill">Día 2</span>
+        <span class="day-title">Walt Disney Studios + Toy Story</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag miranda">⭐ Miranda</span>
+          <div class="tl-name">Desayuno con personajes Disney</div>
+          <p class="tl-desc">Reservar en el hotel antes del viaje. Minnie, Goofy y compañía pasan mesa por mesa. Miranda va a flipar y nosotros también.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">10:30</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag miranda">⭐ Miranda</span>
+          <div class="tl-name">Toy Story Playland</div>
+          <p class="tl-desc">RC Racer, Slinky Dog Zigzag Spin (apta para bebés), Toy Soldiers Parachute Drop. Todo sin altura mínima. Zona perfecta para Miranda.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:00</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">almuerzo</span>
+          <div class="tl-name">Almuerzo y parque de juegos</div>
+          <p class="tl-desc">Comer sin prisa. Aprovechar las zonas de juegos infantiles del parque mientras Miranda gasta energía.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">15:00</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">adultos</span>
+          <div class="tl-name">Turno adultos — Ratatouille</div>
+          <p class="tl-desc">Ratatouille: The Adventure es apta para toda la familia y una de las atracciones más entretenidas del parque. Miranda incluida.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">17:00</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">siesta</span>
+          <div class="tl-name">Siesta estratégica (de nuevo)</div>
+          <p class="tl-desc">El patrón se repite. Hotel, siesta, recarga. Los veteranos de Disney saben que la siesta no es opcional.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DÍA 3 -->
+    <div>
+      <div class="day-header">
+        <span class="day-pill">Día 3</span>
+        <span class="day-title">Lo mejor de Fantasyland + despedida</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag miranda">⭐ Miranda</span>
+          <div class="tl-name">Dumbo The Flying Elephant</div>
+          <p class="tl-desc">El elefante volador es la foto icónica del viaje. Sin cola, apta para bebés, Miranda al mando. Obligatorio.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">10:30</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag miranda">⭐ Miranda</span>
+          <div class="tl-name">Carousel de Lancelot</div>
+          <p class="tl-desc">El tiovivo medieval. Miranda en un caballo blanco, foto de vida. Ya está justificado todo el viaje.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:00</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">shopping</span>
+          <div class="tl-name">Main Street USA — compras finales</div>
+          <p class="tl-desc">La peluche de Minnie para Miranda, el imán para la nevera, y el sombrero de Mickey que Eva va a llevar puesto todo el camino a casa.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">15:00</div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-tag">vuelo</span>
+          <div class="tl-name">Vuelta a casa</div>
+          <p class="tl-desc">Miranda dormida en el avión con la peluche. Vosotros con el móvil lleno de fotos y la cuenta corriente… feliz.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── MIRANDA GRAPH ─── -->
+  <div class="section">
+    <p class="section-eyebrow">Análisis científico</p>
+    <h2 class="section-title">El índice de felicidad de Miranda</h2>
+
+    <div class="graph-section">
+      <p class="graph-title">Estudio longitudinal de felicidad infantil</p>
+      <p class="graph-sub">Muestra: 1 sujeto (Miranda, 2 años) · Metodología: estimación parental con sesgo optimista · Septiembre 2026</p>
+
+      <div class="graph-bars">
+        <div class="graph-row">
+          <div class="graph-label">
+            <span class="graph-label-name">😊 Nivel base — un martes normal en casa</span>
+            <span class="graph-label-value" style="color: var(--ash);">100%</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill bar-before">🧸 🧃</div>
+          </div>
+        </div>
+
+        <div class="graph-row">
+          <div class="graph-label">
+            <span class="graph-label-name">🤩 Llegando al parque y viendo el castillo</span>
+            <span class="graph-label-value" style="color: var(--gold);">430%</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill bar-during">🏰 ✨ 🎠</div>
+          </div>
+        </div>
+
+        <div class="graph-row">
+          <div class="graph-label">
+            <span class="graph-label-name">🤯 Cuando Mickey Mouse le dé la mano</span>
+            <span class="graph-label-value" style="color: var(--magic);">∞ %</span>
+          </div>
+          <div class="bar-track" style="overflow: visible;">
+            <div class="bar-fill bar-after">🐭 🎉 💫 🌟 🎊</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="graph-disclaimer">
+        <strong>Nota metodológica:</strong> El gráfico se ha roto en la tercera barra por desbordamiento de felicidad. Los investigadores confirman que este nivel de alegría es estadísticamente incompatible con los límites del DOM. Miranda también es probable que llore un poco al conocer a Mickey — eso también cuenta como ∞%.
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TIPS ─── -->
+  <div class="section" style="border-bottom: none;">
+    <p class="section-eyebrow">Supervivencia Disney con bebé</p>
+    <h2 class="section-title">Lo que nadie te cuenta</h2>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">🛒</div>
+        <div class="tip-title">El carrito es sagrado</div>
+        <p class="tip-body">Lleva un carrito plegable ligero. Disney permite carros en casi todas las atracciones de Miranda. Es tu base de operaciones, almacén y cama de emergencia.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🎟️</div>
+        <div class="tip-title">Reserva entradas ya</div>
+        <p class="tip-body">Los precios de Disneyland París suben al acercarse la fecha. Reservar con 3-4 meses de antelación puede ahorrar €30-€50 por persona.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📅</div>
+        <div class="tip-title">Reserva los meet &amp; greets</div>
+        <p class="tip-body">Los encuentros con personajes (Mickey, Minnie, Princesas) se reservan en la app Disneyland París desde 60 días antes. Se agotan.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🌤️</div>
+        <div class="tip-title">Septiembre es perfecto</div>
+        <p class="tip-body">Fuera del verano, menos cola, temperatura ideal (18-22°C), y Miranda con suficiente energía antes de que llegue el frío. La elección perfecta.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-emoji">🏰</div>
+  <p class="footer-title">Nos vemos en París, Miranda</p>
+  <p class="footer-sub">Septiembre 2026 · Disneyland París · La primera de muchas veces</p>
+</footer>
+
+</body>
+</html>
