@@ -1,11 +1,11 @@
-name: Deploy example-site
+name: Deploy eva-florencia
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'example-site/**'
+      - 'eva-florencia/**'
 
 jobs:
   deploy:
@@ -18,21 +18,21 @@ jobs:
 
       - name: Pull Vercel environment
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-        working-directory: example-site
+        working-directory: eva-florencia
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.EXAMPLE_SITE_VERCEL_PROJECT_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.EVA_FLORENCIA_VERCEL_PROJECT_ID }}
 
       - name: Build
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-        working-directory: example-site
+        working-directory: eva-florencia
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.EXAMPLE_SITE_VERCEL_PROJECT_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.EVA_FLORENCIA_VERCEL_PROJECT_ID }}
 
       - name: Deploy
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
-        working-directory: example-site
+        working-directory: eva-florencia
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.EXAMPLE_SITE_VERCEL_PROJECT_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.EVA_FLORENCIA_VERCEL_PROJECT_ID }}
