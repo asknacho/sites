@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eva — 40 años en Florencia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --rausch: #ff385c;
+  --canvas: #ffffff;
+  --cloud: #f7f7f7;
+  --hairline: #dddddd;
+  --ink: #222222;
+  --charcoal: #3f3f3f;
+  --ash: #6a6a6a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, system-ui, Roboto, 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── NAV ─── */
+.nav {
+  height: 80px;
+  background: var(--canvas);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-brand {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--rausch);
+  letter-spacing: -0.44px;
+}
+.nav-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ash);
+}
+
+/* ─── HERO ─── */
+.hero-img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+
+/* ─── INTRO ─── */
+.intro {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 48px 24px 40px;
+  border-bottom: 1px solid var(--hairline);
+}
+.intro-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ash);
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.intro-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.43;
+  margin-bottom: 16px;
+}
+.intro-body {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--charcoal);
+  line-height: 1.625;
+  max-width: 620px;
+}
+.intro-sig {
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ash);
+}
+
+/* ─── PAGE CONTAINER ─── */
+.page-container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ─── DAY BLOCKS ─── */
+.day-block {
+  padding: 48px 0 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.day-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ash);
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.day-title {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.18;
+  letter-spacing: -0.44px;
+  margin-bottom: 32px;
+}
+
+/* ─── TIMELINE ─── */
+.timeline { display: flex; flex-direction: column; }
+.tl-item {
+  display: grid;
+  grid-template-columns: 72px 1px 1fr;
+  gap: 0 20px;
+  padding-bottom: 32px;
+}
+.tl-time {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--rausch);
+  text-align: right;
+  padding-top: 2px;
+  line-height: 1.29;
+}
+.tl-time small {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ash);
+  text-transform: lowercase;
+}
+.tl-line-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tl-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rausch);
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.tl-connector {
+  width: 1px;
+  flex: 1;
+  background: var(--hairline);
+  min-height: 24px;
+}
+.tl-item:last-child .tl-connector { display: none; }
+.tl-body { padding-bottom: 8px; }
+.tl-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ash);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-bottom: 6px;
+}
+.tl-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+.tl-desc {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ash);
+  line-height: 1.43;
+  max-width: 480px;
+}
+.tl-tip {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--rausch);
+  line-height: 1.43;
+}
+.tl-img {
+  margin-top: 12px;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+/* ─── QUOTE ─── */
+.quote-section {
+  background: var(--cloud);
+  padding: 48px 24px;
+  text-align: center;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+.quote-text {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.43;
+  letter-spacing: -0.44px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.quote-attr {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ash);
+  margin-top: 12px;
+}
+
+/* ─── FOOD SECTION ─── */
+.food-section {
+  padding: 48px 0;
+  border-top: 1px solid var(--hairline);
+}
+.section-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ash);
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.section-title {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.18;
+  letter-spacing: -0.44px;
+  margin-bottom: 24px;
+}
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.food-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+.food-card-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 8px;
+  line-height: 1.25;
+}
+.food-card-desc {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ash);
+  margin-top: 4px;
+  line-height: 1.43;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--cloud);
+  border-top: 1px solid var(--hairline);
+  padding: 48px 24px;
+  text-align: center;
+}
+.footer-heart {
+  font-size: 20px;
+  color: var(--rausch);
+  margin-bottom: 16px;
+}
+.footer-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.43;
+  margin-bottom: 8px;
+}
+.footer-sub {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ash);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 640px) {
+  .hero-img { height: 280px; }
+  .food-grid { grid-template-columns: 1fr; }
+  .tl-item { grid-template-columns: 56px 1px 1fr; gap: 0 12px; }
+  .nav { padding: 0 16px; }
+  .page-container { padding: 0 16px; }
+  .intro { padding: 32px 16px; }
+  .day-block { padding-top: 32px; }
+  .quote-section { padding: 32px 16px; }
+  .food-section { padding: 32px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav">
+  <span class="nav-brand">Eva · Florencia</span>
+  <span class="nav-subtitle">Junio 2026</span>
+</nav>
+
+<!-- ─── HERO ─── -->
+<img class="hero-img"
+  src="https://images.unsplash.com/photo-1543429258-a5ac5aba9877?w=1600&q=85"
+  alt="Panorámica de Florencia">
+
+<!-- ─── INTRO ─── -->
+<div class="intro">
+  <p class="intro-eyebrow">Un regalo para los 40 más bellos</p>
+  <h1 class="intro-title">Quaranta anni en Firenze</h1>
+  <p class="intro-body">
+    Cuarenta años es la edad en que la vida empieza a saber a algo.
+    He elegido la ciudad más hermosa del mundo para celebrarlo contigo —
+    entre frescos, pasta recién hecha y el Arno al atardecer.
+  </p>
+  <p class="intro-sig">Con todo mi amor</p>
+</div>
+
+<!-- ─── DAY 1 ─── -->
+<div class="page-container">
+  <div class="day-block">
+    <p class="day-label">Primer día</p>
+    <h2 class="day-title">El alma de Florencia</h2>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-time">09:00<small>mañana</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Imprescindible</span>
+          <h3 class="tl-title">Duomo di Firenze</h3>
+          <p class="tl-desc">La catedral de Santa María del Fiore es el corazón de Florencia. La cúpula de Brunelleschi — la más grande del mundo al construirse — se ve desde casi cualquier punto de la ciudad. Incluye el Baptisterio de San Juan y sus puertas doradas que Miguel Ángel llamó "las puertas del Paraíso".</p>
+          <p class="tl-tip">→ Reservar entradas con antelación para evitar colas</p>
+          <img class="tl-img" src="https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=600&q=80" alt="Duomo de Florencia" loading="lazy">
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">11:30<small>mañana</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <h3 class="tl-title">Piazza della Signoria</h3>
+          <p class="tl-desc">La plaza más importante de Florencia, al aire libre y sin entrada. Rodeada de esculturas (incluyendo réplicas del David), la Loggia dei Lanzi y el imponente Palazzo Vecchio. Un espresso en el Caffè Rivoire mirando la plaza es un ritual obligado.</p>
+          <p class="tl-tip">→ A 5 minutos a pie del Duomo</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">13:00<small>mediodía</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Mesa</span>
+          <h3 class="tl-title">Almuerzo en trattoria</h3>
+          <p class="tl-desc">Ribollita (sopa toscana de pan y verduras), pappardelle al cinghiale (pasta con jabalí) o crostini di fegatini. Zona de Santa Croce o del Mercato Nuovo, donde los precios son más honestos que junto a los Uffizi.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">14:30<small>tarde</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Imprescindible</span>
+          <h3 class="tl-title">Galería de los Uffizi</h3>
+          <p class="tl-desc">Uno de los museos más importantes del mundo. El Nacimiento de Venus y La Primavera de Botticelli, el Doni Tondo de Miguel Ángel, Leonardo, Caravaggio y Rafael bajo el mismo techo. Calcular 2–3 horas para disfrutarlo sin prisa.</p>
+          <p class="tl-tip">→ Reserva obligatoria — las colas sin reserva pueden ser de 2–3 horas</p>
+          <img class="tl-img" src="https://images.unsplash.com/photo-1575223970966-76ae61ee7838?w=600&q=80" alt="Galería Uffizi" loading="lazy">
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">17:30<small>tarde</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <h3 class="tl-title">Ponte Vecchio al atardecer</h3>
+          <p class="tl-desc">El puente medieval con sus joyerías suspendidas sobre el Arno. A esta hora la luz es dorada y el ambiente es mágico. Pasear por el Lungarno (paseo fluvial) hacia el barrio de Oltrarno.</p>
+          <img class="tl-img" src="https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80" alt="Ponte Vecchio" loading="lazy">
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">20:00<small>noche</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Cena</span>
+          <h3 class="tl-title">Cena en Oltrarno</h3>
+          <p class="tl-desc">El barrio más auténtico de Florencia, cruzando el río. Bistecca alla fiorentina (el filete más famoso de Italia), pici cacio e pepe, o una tabla de salumi toscanos con un buen Chianti Classico.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─── QUOTE ─── -->
+<div class="quote-section">
+  <p class="quote-text">"Florencia no se visita — se siente"</p>
+  <p class="quote-attr">Entre el Arno y las estrellas</p>
+</div>
+
+<!-- ─── DAY 2 ─── -->
+<div class="page-container">
+  <div class="day-block">
+    <p class="day-label">Segundo día</p>
+    <h2 class="day-title">Arte, jardines y la mejor vista del mundo</h2>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-time">09:00<small>mañana</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Imprescindible</span>
+          <h3 class="tl-title">Galería de la Academia</h3>
+          <p class="tl-desc">El David de Miguel Ángel en persona es una experiencia que cambia la escala de todo lo demás. La obra tiene 5,17 metros de altura y fue esculpida entre 1501 y 1504. Ver también la sala de los Prisioneros, figuras emergiendo del mármol a medias.</p>
+          <p class="tl-tip">→ Reservar entrada — es el museo más visitado de Italia per capita</p>
+          <img class="tl-img" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80" alt="El David" loading="lazy">
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">10:45<small>mañana</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <h3 class="tl-title">Mercado Central de San Lorenzo</h3>
+          <p class="tl-desc">A dos pasos de la Academia. El mercado cubierto más antiguo de Florencia, con puestos de schiacciata recién horneada, pecorino toscano, prosciutto di Parma y el famoso lampredotto (si te atreves).</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">12:00<small>mediodía</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <h3 class="tl-title">Basílica de Santa Croce</h3>
+          <p class="tl-desc">La iglesia panteón de la genialidad italiana: aquí reposan Miguel Ángel, Galileo Galilei, Nicolás Maquiavelo y Dante Alighieri. Los frescos de Giotto en la Capilla Bardi son otro tesoro dentro del tesoro.</p>
+          <img class="tl-img" src="https://images.unsplash.com/photo-1560184897-ae75f418493e?w=600&q=80" alt="Santa Croce" loading="lazy">
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">13:30<small>tarde</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Mesa</span>
+          <h3 class="tl-title">Almuerzo</h3>
+          <p class="tl-desc">Pizza napoletana, pasta e fagioli, o un panino con lampredotto en el mercado cercano. Zona de Santa Croce, con muchas opciones auténticas y precios razonables.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">15:00<small>tarde</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Arte &amp; Naturaleza</span>
+          <h3 class="tl-title">Palazzo Pitti + Jardines de Bóboli</h3>
+          <p class="tl-desc">El palacio más grande de Florencia, antigua residencia de los Médici. Las galerías de arte incluyen Tiziano, Rafael y Rubens. Los Jardines de Bóboli — jardines renacentistas en terrazas con fuentes y vistas a la ciudad — son el pulmón verde de Florencia.</p>
+          <p class="tl-tip">→ Cruzar el Ponte Vecchio para llegar (15 min a pie desde Santa Croce)</p>
+          <img class="tl-img" src="https://images.unsplash.com/photo-1560969184-10fe8719e047?w=600&q=80" alt="Jardines de Bóboli" loading="lazy">
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">17:30<small>atardecer</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Momento especial</span>
+          <h3 class="tl-title">Piazzale Michelangelo</h3>
+          <p class="tl-desc">La mejor panorámica de Florencia. Desde aquí se ve todo: el Duomo, los puentes sobre el Arno, las colinas de la Toscana al fondo. En junio el sol cae tarde — el atardecer desde aquí es literalmente inolvidable.</p>
+          <p class="tl-tip">→ Subir en taxi o a pie desde Oltrarno (20 min)</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">20:30<small>noche</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Cena de celebración</span>
+          <h3 class="tl-title">Cena final en Oltrarno</h3>
+          <p class="tl-desc">De vuelta al barrio artesano de Florencia para la cena de cumpleaños. Bistecca fiorentina para compartir, panna cotta al vin santo de postre y una botella de Brunello di Montalcino para brindar por los cuarenta años más hermosos.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── FOOD SECTION ─── -->
+  <div class="food-section">
+    <p class="section-eyebrow">La mesa toscana</p>
+    <h2 class="section-title">Sabores que recordarás siempre</h2>
+    <div class="food-grid">
+      <div class="food-card">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700&q=80" alt="Pasta fresca" loading="lazy">
+        <p class="food-card-name">Pasta fresca</p>
+        <p class="food-card-desc">Pappardelle, pici, tagliatelle — cada forma tiene su ragù</p>
+      </div>
+      <div class="food-card">
+        <img src="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=700&q=80" alt="Pizza napoletana" loading="lazy">
+        <p class="food-card-name">Pizza napoletana</p>
+        <p class="food-card-desc">Masa fermentada 48h, mozzarella di bufala, forno a legna</p>
+      </div>
+      <div class="food-card">
+        <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=700&q=80" alt="Chianti Classico" loading="lazy">
+        <p class="food-card-name">Chianti Classico</p>
+        <p class="food-card-desc">El vino de las colinas toscanas, con el gallo negro en la etiqueta</p>
+      </div>
+      <div class="food-card">
+        <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=700&q=80" alt="Gelato artigianale" loading="lazy">
+        <p class="food-card-name">Gelato artigianale</p>
+        <p class="food-card-desc">Buscar siempre las gelaterie senza colori artificiosi — las de verdad</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p class="footer-heart">♥</p>
+  <p class="footer-title">Feliz cumpleaños, Eva</p>
+  <p class="footer-sub">Florencia te espera · Junio 2026</p>
+</footer>
+
+</body>
+</html>
