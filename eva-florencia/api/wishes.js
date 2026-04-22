@@ -16,14 +16,23 @@ module.exports = async function handler(req, res) {
   };
 
   if (req.method === 'GET') {
-    const r = await fetch(`${supabaseUrl}/rest/v1/wishes?select=*&order=created_at.desc`, {
+    let r = await fetch(`${supabaseUrl}/rest/v1/wishes?select=*,reactions(emoji,count)&order=created_at.desc`, {
       headers: authHeaders,
     });
+    if (!r.ok) {
+      r = await fetch(`${supabaseUrl}/rest/v1/wishes?select=*&order=created_at.desc`, { headers: authHeaders });
+    }
     const wishes = await r.json();
     const storageBase = `${supabaseUrl}/storage/v1/object/public/wish-images`;
     return res.status(200).json(
       Array.isArray(wishes)
-        ? wishes.map(w => ({ ...w, image_url: w.image_path ? `${storageBase}/${w.image_path}` : null }))
+        ? wishes.map(w => {
+            const reactionsMap = {};
+            if (Array.isArray(w.reactions)) {
+              w.reactions.forEach(rx => { reactionsMap[rx.emoji] = rx.count; });
+            }
+            return { ...w, image_url: w.image_path ? `${storageBase}/${w.image_path}` : null, reactions: reactionsMap };
+          })
         : wishes
     );
   }
