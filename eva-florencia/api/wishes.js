@@ -5,6 +5,8 @@ module.exports = async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
+  try {
+
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const authHeaders = {
@@ -63,10 +65,16 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({ name, email, message, image_path }),
     });
     const inserted = await insertRes.json();
+    if (!insertRes.ok) {
+      return res.status(500).json({ error: inserted.message || inserted.error || 'Error al guardar el deseo' });
+    }
     return res.status(201).json(inserted);
   }
 
-  return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ error: 'Method not allowed' });
+  } catch (err) {
+    return res.status(500).json({ error: err.message || 'Error interno del servidor' });
+  }
 };
 
 module.exports.config = {

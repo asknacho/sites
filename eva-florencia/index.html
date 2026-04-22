@@ -1059,7 +1059,12 @@ footer {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) { var er = await res.json(); throw new Error(er.error || 'Error desconocido'); }
+      if (!res.ok) {
+        var errText = await res.text();
+        var errMsg = 'Error del servidor';
+        try { var er = JSON.parse(errText); errMsg = er.error || er.message || errMsg; } catch (_) {}
+        throw new Error(errMsg);
+      }
       status.className = 'form-status ok';
       status.textContent = '¡Gracias! Tu mensaje ha sido enviado.';
       form.reset();
