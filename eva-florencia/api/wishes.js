@@ -28,8 +28,8 @@ module.exports = async function handler(req, res) {
   if (req.method === 'POST') {
     const { name, email, message, invite_code, image_base64, image_type } = req.body || {};
 
-    if (!name || !email || !message) {
-      return res.status(400).json({ error: 'Nombre, email y mensaje son obligatorios' });
+    if (!name || !message) {
+      return res.status(400).json({ error: 'Nombre y mensaje son obligatorios' });
     }
     if (invite_code !== process.env.INVITE_CODE) {
       return res.status(403).json({ error: 'Código de invitación incorrecto' });

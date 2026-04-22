@@ -576,6 +576,41 @@ input[type="file"] {
 .form-status.error { color: var(--rausch); }
 .form-status.ok { color: #16a34a; }
 
+/* ─── LIGHTBOX ─── */
+.lightbox {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+.lightbox img {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
+.lightbox-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wish-photo { cursor: zoom-in; }
+
 /* ─── FOOTER ─── */
 footer {
   background: var(--cloud);
@@ -632,6 +667,16 @@ footer {
 <!-- ─── COUPLE PHOTO ─── -->
 <div class="couple-wrap">
   <img class="couple-photo" src="images/hero.jpg" alt="Eva y yo">
+</div>
+
+<!-- ─── TEASER INTRO ─── -->
+<div class="intro">
+  <p class="intro-eyebrow">Para la mujer de mi vida</p>
+  <h1 class="intro-title">Eva cumple 40</h1>
+  <p class="intro-body">
+    Cuarenta años se merecen algo especial. He preparado una sorpresa para celebrarlo contigo — hay un regalo esperando más abajo.
+  </p>
+  <p class="intro-sig">Con todo mi amor</p>
 </div>
 
 <!-- ─── WISHES ─── -->
@@ -867,8 +912,8 @@ footer {
           <input class="form-input" id="wish-name" type="text" placeholder="Tu nombre" required>
         </div>
         <div class="form-group">
-          <label class="form-label" for="wish-email">Email</label>
-          <input class="form-input" id="wish-email" type="email" placeholder="tu@email.com" required>
+          <label class="form-label" for="wish-email">Email <span style="font-weight:500;color:var(--ash)">(opcional)</span></label>
+          <input class="form-input" id="wish-email" type="email" placeholder="tu@email.com">
         </div>
       </div>
       <div class="form-group">
@@ -986,13 +1031,13 @@ footer {
     var message = form.querySelector('#wish-message').value.trim();
     var code    = form.querySelector('#wish-code').value.trim();
 
-    if (!name || !email || !message || !code) {
+    if (!name || !message || !code) {
       status.className = 'form-status error';
-      status.textContent = 'Por favor rellena todos los campos obligatorios.';
+      status.textContent = 'Por favor rellena el nombre, mensaje y código.';
       return;
     }
 
-    var payload = { name: name, email: email, message: message, invite_code: code };
+    var payload = { name: name, email: email || '', message: message, invite_code: code };
     var fi = form.querySelector('#wish-image');
     if (fi.files[0]) {
       if (fi.files[0].size > 5 * 1024 * 1024) {
@@ -1027,6 +1072,22 @@ footer {
       btn.disabled = false;
     }
   }
+
+  /* ── Lightbox ── */
+  function openLightbox(src) {
+    var lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.innerHTML = '<button class="lightbox-close" aria-label="Cerrar">×</button><img src="' + src + '" alt="">';
+    lb.addEventListener('click', function () { lb.remove(); });
+    document.body.appendChild(lb);
+    document.addEventListener('keydown', function esc(e) {
+      if (e.key === 'Escape') { lb.remove(); document.removeEventListener('keydown', esc); }
+    });
+  }
+
+  document.getElementById('wishes-grid').addEventListener('click', function (e) {
+    if (e.target.classList.contains('wish-photo')) openLightbox(e.target.src);
+  });
 
   /* ── Init (script is at end of body — DOM already ready) ── */
   initGiftGate();
