@@ -258,6 +258,157 @@ body {
 }
 
 
+/* ─── WISHES ─── */
+.wishes-section {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  border-bottom: 1px solid var(--hairline);
+}
+.wishes-heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.44px;
+  margin-bottom: 6px;
+}
+.wishes-sub {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ash);
+  margin-bottom: 32px;
+}
+.wishes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.wish-card {
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.wish-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+.wish-body { padding: 16px; }
+.wish-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.wish-message {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--charcoal);
+  line-height: 1.5;
+}
+.wish-date {
+  font-size: 12px;
+  color: var(--ash);
+  margin-top: 8px;
+}
+.wishes-empty {
+  font-size: 14px;
+  color: var(--ash);
+  text-align: center;
+  padding: 24px 0 32px;
+}
+
+/* ─── WISH FORM ─── */
+.wish-form-wrap {
+  background: var(--cloud);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: 32px;
+}
+.form-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.form-group { margin-bottom: 16px; }
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+}
+.form-label span {
+  font-weight: 500;
+  color: var(--ash);
+}
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+}
+.form-input:focus,
+.form-textarea:focus { border-color: var(--ink); }
+.form-textarea { min-height: 100px; resize: vertical; line-height: 1.5; }
+.form-file-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+}
+.form-file-label span { font-weight: 500; color: var(--ash); }
+input[type="file"] {
+  width: 100%;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ash);
+}
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--rausch);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.15s;
+}
+.btn-submit:hover { opacity: 0.88; }
+.btn-submit:disabled { opacity: 0.45; cursor: default; }
+.form-status {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 12px;
+  min-height: 20px;
+}
+.form-status.error { color: var(--rausch); }
+.form-status.ok { color: #16a34a; }
+
 /* ─── FOOTER ─── */
 footer {
   background: var(--cloud);
@@ -292,6 +443,10 @@ footer {
   .intro { padding: 32px 16px; }
   .day-block { padding-top: 32px; }
   .quote-section { padding: 32px 16px; }
+  .wishes-section { padding: 32px 16px; }
+  .form-row { grid-template-columns: 1fr; }
+  .wish-form-wrap { padding: 24px 16px; }
+  .wishes-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -492,6 +647,47 @@ footer {
 
 </div>
 
+<!-- ─── WISHES ─── -->
+<section class="wishes-section" id="wishes-section">
+  <h2 class="wishes-heading">Felicita a Eva</h2>
+  <p class="wishes-sub">Deja un mensaje para su 40 cumpleaños</p>
+
+  <div class="wishes-grid" id="wishes-grid" style="display:none"></div>
+  <p class="wishes-empty" id="wishes-empty" style="display:none">Sé el primero en dejar un deseo.</p>
+
+  <div class="wish-form-wrap">
+    <p class="form-title">Deja tu mensaje</p>
+    <form id="wish-form" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="wish-name">Nombre</label>
+          <input class="form-input" id="wish-name" type="text" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="wish-email">Email</label>
+          <input class="form-input" id="wish-email" type="email" placeholder="tu@email.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="wish-message">Mensaje</label>
+        <textarea class="form-textarea" id="wish-message" placeholder="Escribe tu mensaje para Eva..." required></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="wish-code">Código de invitación</label>
+          <input class="form-input" id="wish-code" type="text" placeholder="Código" required>
+        </div>
+        <div class="form-group">
+          <label class="form-file-label" for="wish-image">Foto <span>(opcional · máx 2 MB)</span></label>
+          <input id="wish-image" type="file" accept="image/jpeg,image/png,image/webp">
+        </div>
+      </div>
+      <button class="btn-submit" type="submit">Enviar felicitación</button>
+      <p class="form-status" id="form-status"></p>
+    </form>
+  </div>
+</section>
+
 <!-- ─── FOOTER ─── -->
 <footer>
   <p class="footer-heart">♥</p>
@@ -499,5 +695,125 @@ footer {
   <p class="footer-sub">Florencia te espera · Junio 2026</p>
 </footer>
 
+<script>
+(function () {
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  async function loadWishes() {
+    try {
+      const res = await fetch('/api/wishes');
+      if (!res.ok) return;
+      const wishes = await res.json();
+      renderWishes(Array.isArray(wishes) ? wishes : []);
+    } catch (_) {}
+  }
+
+  function renderWishes(wishes) {
+    const grid = document.getElementById('wishes-grid');
+    const empty = document.getElementById('wishes-empty');
+    if (wishes.length === 0) {
+      grid.style.display = 'none';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    grid.style.display = 'grid';
+    grid.innerHTML = wishes.map(function (w) {
+      var date = new Date(w.created_at).toLocaleDateString('es-ES', {
+        day: 'numeric', month: 'long', year: 'numeric',
+      });
+      var img = w.image_url
+        ? '<img class="wish-photo" src="' + esc(w.image_url) + '" alt="' + esc(w.name) + '" loading="lazy">'
+        : '';
+      return (
+        '<div class="wish-card">' +
+          img +
+          '<div class="wish-body">' +
+            '<p class="wish-name">' + esc(w.name) + '</p>' +
+            '<p class="wish-message">' + esc(w.message) + '</p>' +
+            '<p class="wish-date">' + date + '</p>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  function toBase64(file) {
+    return new Promise(function (resolve, reject) {
+      var r = new FileReader();
+      r.onload = function () { resolve(r.result.split(',')[1]); };
+      r.onerror = reject;
+      r.readAsDataURL(file);
+    });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    var form = e.target;
+    var btn = form.querySelector('.btn-submit');
+    var status = document.getElementById('form-status');
+    var name = form.querySelector('#wish-name').value.trim();
+    var email = form.querySelector('#wish-email').value.trim();
+    var message = form.querySelector('#wish-message').value.trim();
+    var code = form.querySelector('#wish-code').value.trim();
+
+    if (!name || !email || !message || !code) {
+      status.className = 'form-status error';
+      status.textContent = 'Por favor rellena todos los campos obligatorios.';
+      return;
+    }
+
+    var payload = { name: name, email: email, message: message, invite_code: code };
+    var fileInput = form.querySelector('#wish-image');
+    if (fileInput.files[0]) {
+      var file = fileInput.files[0];
+      if (file.size > 2 * 1024 * 1024) {
+        status.className = 'form-status error';
+        status.textContent = 'La imagen no puede superar los 2 MB.';
+        return;
+      }
+      payload.image_base64 = await toBase64(file);
+      payload.image_type = file.type;
+    }
+
+    btn.disabled = true;
+    status.className = 'form-status';
+    status.textContent = 'Enviando…';
+
+    try {
+      var res = await fetch('/api/wishes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        var err = await res.json();
+        throw new Error(err.error || 'Error desconocido');
+      }
+      status.className = 'form-status ok';
+      status.textContent = '¡Gracias! Tu mensaje ha sido enviado.';
+      form.reset();
+      await loadWishes();
+    } catch (ex) {
+      status.className = 'form-status error';
+      status.textContent = ex.message;
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    loadWishes();
+    var form = document.getElementById('wish-form');
+    if (form) form.addEventListener('submit', handleSubmit);
+  });
+})();
+</script>
 </body>
 </html>

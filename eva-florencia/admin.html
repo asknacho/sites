@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Deseos de Eva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rausch: #ff385c; --canvas: #ffffff; --cloud: #f7f7f7;
+  --hairline: #dddddd; --ink: #222222; --charcoal: #3f3f3f; --ash: #6a6a6a;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--cloud);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+.nav {
+  height: 64px;
+  background: var(--canvas);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+}
+.nav-brand { font-size: 18px; font-weight: 700; color: var(--rausch); }
+.nav-label { font-size: 13px; color: var(--ash); }
+.container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+#access-denied { text-align: center; padding: 80px 24px; }
+#access-denied h1 { font-size: 22px; color: var(--rausch); margin-bottom: 8px; }
+#access-denied p { color: var(--ash); }
+#loading { text-align: center; padding: 60px; color: var(--ash); }
+.stats { font-size: 14px; color: var(--ash); margin-bottom: 24px; }
+.wishes-list { display: flex; flex-direction: column; gap: 12px; }
+.wish-row {
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+}
+.wish-row.deleting { opacity: 0.4; pointer-events: none; }
+.wish-meta { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+.wish-name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.wish-email { font-size: 13px; color: var(--ash); }
+.wish-date { font-size: 12px; color: var(--ash); }
+.wish-message { font-size: 14px; color: var(--charcoal); line-height: 1.5; }
+.wish-thumb {
+  margin-top: 10px;
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--hairline);
+  display: block;
+}
+.btn-delete {
+  padding: 8px 14px;
+  background: var(--canvas);
+  color: var(--rausch);
+  border: 1px solid var(--rausch);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-delete:hover { background: var(--rausch); color: #fff; }
+.empty { text-align: center; padding: 60px; color: var(--ash); font-size: 15px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-brand">Eva · Florencia</span>
+  <span class="nav-label">Panel de administración</span>
+</nav>
+
+<div class="container">
+  <div id="access-denied" style="display:none">
+    <h1>Acceso denegado</h1>
+    <p>Token de administrador inválido o no proporcionado.</p>
+  </div>
+
+  <div id="loading">Cargando...</div>
+
+  <div id="content" style="display:none">
+    <p class="stats" id="stats"></p>
+    <div class="wishes-list" id="wishes-list"></div>
+    <p class="empty" id="empty" style="display:none">No hay deseos todavía.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  const token = params.get('token');
+
+  if (!token) {
+    document.getElementById('access-denied').style.display = 'block';
+    document.getElementById('loading').style.display = 'none';
+    return;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function formatDate(iso) {
+    return new Date(iso).toLocaleString('es-ES', {
+      day: 'numeric', month: 'long', year: 'numeric',
+      hour: '2-digit', minute: '2-digit',
+    });
+  }
+
+  async function deleteWish(id, btn) {
+    const row = btn.closest('.wish-row');
+    row.classList.add('deleting');
+    try {
+      const res = await fetch('/api/delete-wish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, admin_token: token }),
+      });
+      if (!res.ok) throw new Error((await res.json()).error);
+      row.remove();
+      updateStats();
+    } catch (e) {
+      alert('Error al eliminar: ' + e.message);
+      row.classList.remove('deleting');
+    }
+  }
+
+  function updateStats() {
+    const rows = document.querySelectorAll('.wish-row');
+    document.getElementById('stats').textContent = `${rows.length} deseo${rows.length !== 1 ? 's' : ''}`;
+    document.getElementById('empty').style.display = rows.length === 0 ? 'block' : 'none';
+  }
+
+  async function init() {
+    try {
+      const res = await fetch('/api/wishes');
+      if (!res.ok) throw new Error('Error al cargar');
+      const wishes = await res.json();
+
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+
+      if (!Array.isArray(wishes) || wishes.length === 0) {
+        document.getElementById('empty').style.display = 'block';
+        document.getElementById('stats').textContent = '0 deseos';
+        return;
+      }
+
+      const list = document.getElementById('wishes-list');
+      list.innerHTML = wishes.map(w => `
+        <div class="wish-row" data-id="${w.id}">
+          <div>
+            <div class="wish-meta">
+              <span class="wish-name">${escapeHtml(w.name)}</span>
+              <span class="wish-email">${escapeHtml(w.email)}</span>
+              <span class="wish-date">${formatDate(w.created_at)}</span>
+            </div>
+            <p class="wish-message">${escapeHtml(w.message)}</p>
+            ${w.image_url ? `<img class="wish-thumb" src="${escapeHtml(w.image_url)}" alt="">` : ''}
+          </div>
+          <button class="btn-delete" onclick="window._del('${w.id}', this)">Eliminar</button>
+        </div>
+      `).join('');
+
+      window._del = deleteWish;
+      updateStats();
+    } catch (e) {
+      document.getElementById('loading').textContent = 'Error al cargar. Verifica el token.';
+    }
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
