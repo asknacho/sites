@@ -70,6 +70,7 @@ body {
   display: block;
 }
 
+
 /* ─── INTRO ─── */
 .intro {
   max-width: 780px;
@@ -104,6 +105,18 @@ body {
   font-size: 14px;
   font-weight: 500;
   color: var(--ash);
+}
+.dates-notice {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ash);
+  background: var(--cloud);
+  border: 1px solid var(--hairline);
+  border-radius: 20px;
+  padding: 6px 14px;
+  margin-bottom: 20px;
 }
 
 /* ─── PAGE CONTAINER ─── */
@@ -244,6 +257,7 @@ body {
   margin-top: 12px;
 }
 
+
 /* ─── WISHES ─── */
 .wishes-section {
   max-width: 780px;
@@ -364,7 +378,7 @@ body {
 }
 @keyframes gift-float {
   0%, 100% { transform: translateY(0); }
-  45% { transform: translateY(-8px); }
+  45%       { transform: translateY(-8px); }
 }
 .gift-title {
   font-size: 22px;
@@ -403,10 +417,10 @@ body {
 .gift-input.shake { animation: input-shake 0.35s ease; border-color: var(--rausch); }
 @keyframes input-shake {
   0%,100% { transform: translateX(0); }
-  20% { transform: translateX(-6px); }
-  40% { transform: translateX(6px); }
-  60% { transform: translateX(-4px); }
-  80% { transform: translateX(4px); }
+  20%     { transform: translateX(-6px); }
+  40%     { transform: translateX(6px); }
+  60%     { transform: translateX(-4px); }
+  80%     { transform: translateX(4px); }
 }
 .gift-btn {
   padding: 12px 22px;
@@ -429,14 +443,14 @@ body {
   min-height: 18px;
 }
 @keyframes gate-out {
-  0% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.03); }
+  0%   { opacity: 1; transform: scale(1); }
+  50%  { opacity: 0.6; transform: scale(1.03); }
   100% { opacity: 0; transform: scale(0.94); }
 }
 .gift-gate.opening { animation: gate-out 0.5s ease forwards; pointer-events: none; }
 @keyframes trip-in {
   from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 #trip-content.revealed { animation: trip-in 0.4s ease forwards; }
 
@@ -479,7 +493,7 @@ body {
 }
 .modal-close:hover { background: var(--hairline); }
 
-/* ─── WISH FORM ─── */
+/* ─── WISH FORM (inside modal) ─── */
 .form-title {
   font-size: 18px;
   font-weight: 600;
@@ -608,15 +622,18 @@ footer {
 </head>
 <body>
 
+<!-- ─── NAV ─── -->
 <nav class="nav">
   <span class="nav-brand">Los 40 de Eva</span>
   <span class="nav-subtitle">??? 2026</span>
 </nav>
 
+<!-- ─── COUPLE PHOTO ─── -->
 <div class="couple-wrap">
   <img class="couple-photo" src="images/hero.jpg" alt="Eva y yo">
 </div>
 
+<!-- ─── INTRO ─── -->
 <div class="intro">
   <p class="intro-eyebrow">Un regalo para los 40 más bellos</p>
   <h1 class="intro-title">Cuarenta es el tiempo justo</h1>
@@ -629,6 +646,20 @@ footer {
   <p class="intro-sig">Con todo mi amor</p>
 </div>
 
+<!-- ─── WISHES ─── -->
+<section class="wishes-section">
+  <div class="wishes-header">
+    <div>
+      <h2 class="wishes-heading">Felicita a Eva</h2>
+      <p class="wishes-sub">Deja un mensaje para sus 40 años</p>
+    </div>
+    <button class="btn-add-wish" id="add-wish-btn">+ Añadir deseo</button>
+  </div>
+  <div class="wishes-grid" id="wishes-grid" style="display:none"></div>
+  <p class="wishes-empty" id="wishes-empty" style="display:none">Sé el primero en dejar un deseo.</p>
+</section>
+
+<!-- ─── GIFT GATE ─── -->
 <div class="gift-gate" id="gift-gate">
   <div class="gift-card">
     <span class="gift-emoji">🎁</span>
@@ -636,222 +667,219 @@ footer {
     <p class="gift-sub">Introduce el código secreto para descubrir el viaje de tu vida</p>
     <div class="gift-input-wrap">
       <input class="gift-input" id="gift-password" type="password" placeholder="········" autocomplete="off">
-      <button class="gift-btn" id="gift-btn" type="button">Abrir</button>
+      <button class="gift-btn" id="gift-btn">Abrir</button>
     </div>
     <p class="gift-error" id="gift-error"></p>
   </div>
 </div>
 
+<!-- ─── TRIP CONTENT (hidden until unlocked) ─── -->
 <div id="trip-content" style="display:none">
 
-  <div class="page-container">
-    <div class="day-block">
-      <p class="day-label">Primer día</p>
-      <h2 class="day-title">El alma de Florencia</h2>
+<!-- ─── DAY 1 ─── -->
+<div class="page-container">
+  <div class="day-block">
+    <p class="day-label">Primer día</p>
+    <h2 class="day-title">El alma de Florencia</h2>
 
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-time">09:00<small>mañana</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <span class="tl-badge">Imprescindible</span>
-            <h3 class="tl-title">Duomo di Firenze</h3>
-            <p class="tl-desc">La catedral de Santa María del Fiore es el corazón de Florencia. La cúpula de Brunelleschi — la más grande del mundo al construirse — se ve desde casi cualquier punto de la ciudad. Incluye el Baptisterio de San Juan y sus puertas doradas que Miguel Ángel llamó "las puertas del Paraíso".</p>
-            <p class="tl-tip">→ Reservar entradas con antelación para evitar colas</p>
-            <img class="tl-img" src="https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=600&q=80" alt="Duomo de Florencia" loading="lazy">
-          </div>
-        </div>
+    <div class="timeline">
 
-        <div class="tl-item">
-          <div class="tl-time">11:30<small>mañana</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <h3 class="tl-title">Piazza della Signoria</h3>
-            <p class="tl-desc">La plaza más importante de Florencia, al aire libre y sin entrada. Rodeada de esculturas (incluyendo réplicas del David), la Loggia dei Lanzi y el imponente Palazzo Vecchio. Un espresso en el Caffè Rivoire mirando la plaza es un ritual obligado.</p>
-            <p class="tl-tip">→ A 5 minutos a pie del Duomo</p>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-time">13:00<small>mediodía</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <span class="tl-badge">Mesa</span>
-            <h3 class="tl-title">Almuerzo en trattoria</h3>
-            <p class="tl-desc">Ribollita (sopa toscana de pan y verduras), pappardelle al cinghiale (pasta con jabalí) o crostini di fegatini. Zona de Santa Croce o del Mercato Nuovo, donde los precios son más honestos que junto a los Uffizi.</p>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-time">14:30<small>tarde</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <span class="tl-badge">Imprescindible</span>
-            <h3 class="tl-title">Galería de los Uffizi</h3>
-            <p class="tl-desc">Uno de los museos más importantes del mundo. El Nacimiento de Venus y La Primavera de Botticelli, el Doni Tondo de Miguel Ángel, Leonardo, Caravaggio y Rafael bajo el mismo techo. Calcular 2–3 horas para disfrutarlo sin prisa.</p>
-            <p class="tl-tip">→ Reserva obligatoria — las colas sin reserva pueden ser de 2–3 horas</p>
-            <img class="tl-img" src="https://images.unsplash.com/photo-1575223970966-76ae61ee7838?w=600&q=80" alt="Galería Uffizi" loading="lazy">
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-time">17:30<small>tarde</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <h3 class="tl-title">Ponte Vecchio al atardecer</h3>
-            <p class="tl-desc">El puente medieval con sus joyerías suspendidas sobre el Arno. A esta hora la luz es dorada y el ambiente es mágico. Pasear por el Lungarno (paseo fluvial) hacia el barrio de Oltrarno.</p>
-            <img class="tl-img" src="https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80" alt="Ponte Vecchio" loading="lazy">
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-time">20:00<small>noche</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <span class="tl-badge">Cena</span>
-            <h3 class="tl-title">Cena en Oltrarno</h3>
-            <p class="tl-desc">El barrio más auténtico de Florencia, cruzando el río. Bistecca alla fiorentina (el filete más famoso de Italia), pici cacio e pepe, o una tabla de salumi toscanos con un buen Chianti Classico.</p>
-          </div>
+      <div class="tl-item">
+        <div class="tl-time">09:00<small>mañana</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Imprescindible</span>
+          <h3 class="tl-title">Duomo di Firenze</h3>
+          <p class="tl-desc">La catedral de Santa María del Fiore es el corazón de Florencia. La cúpula de Brunelleschi — la más grande del mundo al construirse — se ve desde casi cualquier punto de la ciudad. Incluye el Baptisterio de San Juan y sus puertas doradas que Miguel Ángel llamó "las puertas del Paraíso".</p>
+          <p class="tl-tip">→ Reservar entradas con antelación para evitar colas</p>
+          <img class="tl-img" src="https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=600&q=80" alt="Duomo de Florencia" loading="lazy">
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="quote-section">
-    <p class="quote-text">"Florencia no se visita — se siente"</p>
-    <p class="quote-attr">Entre el Arno y las estrellas</p>
-  </div>
-
-  <div class="page-container">
-    <div class="day-block">
-      <p class="day-label">Segundo día</p>
-      <h2 class="day-title">Arte, jardines y la mejor vista del mundo</h2>
-
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-time">09:00<small>mañana</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <span class="tl-badge">Imprescindible</span>
-            <h3 class="tl-title">Galería de la Academia</h3>
-            <p class="tl-desc">El David de Miguel Ángel en persona es una experiencia que cambia la escala de todo lo demás. La obra tiene 5,17 metros de altura y fue esculpida entre 1501 y 1504. Ver también la sala de los Prisioneros, figuras emergiendo del mármol a medias.</p>
-            <p class="tl-tip">→ Reservar entrada — es el museo más visitado de Italia per capita</p>
-            <img class="tl-img" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80" alt="El David" loading="lazy">
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-time">10:45<small>mañana</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <h3 class="tl-title">Mercado Central de San Lorenzo</h3>
-            <p class="tl-desc">A dos pasos de la Academia. El mercado cubierto más antiguo de Florencia, con puestos de schiacciata recién horneada, pecorino toscano, prosciutto di Parma y el famoso lampredotto (si te atreves).</p>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-time">12:00<small>mediodía</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <h3 class="tl-title">Basílica de Santa Croce</h3>
-            <p class="tl-desc">La iglesia panteón de la genialidad italiana: aquí reposan Miguel Ángel, Galileo Galilei, Nicolás Maquiavelo y Dante Alighieri. Los frescos de Giotto en la Capilla Bardi son otro tesoro dentro del tesoro.</p>
-            <img class="tl-img" src="https://images.unsplash.com/photo-1560184897-ae75f418493e?w=600&q=80" alt="Santa Croce" loading="lazy">
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-time">13:30<small>tarde</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <span class="tl-badge">Mesa</span>
-            <h3 class="tl-title">Almuerzo</h3>
-            <p class="tl-desc">Pizza napoletana, pasta e fagioli, o un panino con lampredotto en el mercado cercano. Zona de Santa Croce, con muchas opciones auténticas y precios razonables.</p>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-time">15:00<small>tarde</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <span class="tl-badge">Arte &amp; Naturaleza</span>
-            <h3 class="tl-title">Palazzo Pitti + Jardines de Bóboli</h3>
-            <p class="tl-desc">El palacio más grande de Florencia, antigua residencia de los Médici. Las galerías de arte incluyen Tiziano, Rafael y Rubens. Los Jardines de Bóboli — jardines renacentistas en terrazas con fuentes y vistas a la ciudad — son el pulmón verde de Florencia.</p>
-            <p class="tl-tip">→ Cruzar el Ponte Vecchio para llegar (15 min a pie desde Santa Croce)</p>
-            <img class="tl-img" src="https://images.unsplash.com/photo-1560969184-10fe8719e047?w=600&q=80" alt="Jardines de Bóboli" loading="lazy">
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-time">17:30<small>atardecer</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <span class="tl-badge">Momento especial</span>
-            <h3 class="tl-title">Piazzale Michelangelo</h3>
-            <p class="tl-desc">La mejor panorámica de Florencia. Desde aquí se ve todo: el Duomo, los puentes sobre el Arno, las colinas de la Toscana al fondo. En junio el sol cae tarde — el atardecer desde aquí es literalmente inolvidable.</p>
-            <p class="tl-tip">→ Subir en taxi o a pie desde Oltrarno (20 min)</p>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-time">20:30<small>noche</small></div>
-          <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-          <div class="tl-body">
-            <span class="tl-badge">Cena de celebración</span>
-            <h3 class="tl-title">Cena final en Oltrarno</h3>
-            <p class="tl-desc">De vuelta al barrio artesano de Florencia para la cena de cumpleaños. Bistecca fiorentina para compartir, panna cotta al vin santo de postre y una botella de Brunello di Montalcino para brindar por los cuarenta años más hermosos.</p>
-          </div>
+      <div class="tl-item">
+        <div class="tl-time">11:30<small>mañana</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <h3 class="tl-title">Piazza della Signoria</h3>
+          <p class="tl-desc">La plaza más importante de Florencia, al aire libre y sin entrada. Rodeada de esculturas (incluyendo réplicas del David), la Loggia dei Lanzi y el imponente Palazzo Vecchio. Un espresso en el Caffè Rivoire mirando la plaza es un ritual obligado.</p>
+          <p class="tl-tip">→ A 5 minutos a pie del Duomo</p>
         </div>
       </div>
+
+      <div class="tl-item">
+        <div class="tl-time">13:00<small>mediodía</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Mesa</span>
+          <h3 class="tl-title">Almuerzo en trattoria</h3>
+          <p class="tl-desc">Ribollita (sopa toscana de pan y verduras), pappardelle al cinghiale (pasta con jabalí) o crostini di fegatini. Zona de Santa Croce o del Mercato Nuovo, donde los precios son más honestos que junto a los Uffizi.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">14:30<small>tarde</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Imprescindible</span>
+          <h3 class="tl-title">Galería de los Uffizi</h3>
+          <p class="tl-desc">Uno de los museos más importantes del mundo. El Nacimiento de Venus y La Primavera de Botticelli, el Doni Tondo de Miguel Ángel, Leonardo, Caravaggio y Rafael bajo el mismo techo. Calcular 2–3 horas para disfrutarlo sin prisa.</p>
+          <p class="tl-tip">→ Reserva obligatoria — las colas sin reserva pueden ser de 2–3 horas</p>
+          <img class="tl-img" src="https://images.unsplash.com/photo-1575223970966-76ae61ee7838?w=600&q=80" alt="Galería Uffizi" loading="lazy">
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">17:30<small>tarde</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <h3 class="tl-title">Ponte Vecchio al atardecer</h3>
+          <p class="tl-desc">El puente medieval con sus joyerías suspendidas sobre el Arno. A esta hora la luz es dorada y el ambiente es mágico. Pasear por el Lungarno (paseo fluvial) hacia el barrio de Oltrarno.</p>
+          <img class="tl-img" src="https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80" alt="Ponte Vecchio" loading="lazy">
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">20:00<small>noche</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Cena</span>
+          <h3 class="tl-title">Cena en Oltrarno</h3>
+          <p class="tl-desc">El barrio más auténtico de Florencia, cruzando el río. Bistecca alla fiorentina (el filete más famoso de Italia), pici cacio e pepe, o una tabla de salumi toscanos con un buen Chianti Classico.</p>
+        </div>
+      </div>
+
     </div>
   </div>
-
 </div>
 
-<section class="wishes-section" id="wishes-section" style="display:none">
-  <div class="wishes-header">
-    <div>
-      <h2 class="wishes-heading">Felicita a Eva</h2>
-      <p class="wishes-sub">Deja un mensaje para sus 40 años</p>
-    </div>
-    <button class="btn-add-wish" id="add-wish-btn" type="button">+ Añadir deseo</button>
-  </div>
-  <div class="wishes-grid" id="wishes-grid" style="display:none"></div>
-  <p class="wishes-empty" id="wishes-empty" style="display:none">Sé el primero en dejar un deseo.</p>
-</section>
+<!-- ─── QUOTE ─── -->
+<div class="quote-section">
+  <p class="quote-text">"Florencia no se visita — se siente"</p>
+  <p class="quote-attr">Entre el Arno y las estrellas</p>
+</div>
 
+<!-- ─── DAY 2 ─── -->
+<div class="page-container">
+  <div class="day-block">
+    <p class="day-label">Segundo día</p>
+    <h2 class="day-title">Arte, jardines y la mejor vista del mundo</h2>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-time">09:00<small>mañana</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Imprescindible</span>
+          <h3 class="tl-title">Galería de la Academia</h3>
+          <p class="tl-desc">El David de Miguel Ángel en persona es una experiencia que cambia la escala de todo lo demás. La obra tiene 5,17 metros de altura y fue esculpida entre 1501 y 1504. Ver también la sala de los Prisioneros, figuras emergiendo del mármol a medias.</p>
+          <p class="tl-tip">→ Reservar entrada — es el museo más visitado de Italia per capita</p>
+          <img class="tl-img" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80" alt="El David" loading="lazy">
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">10:45<small>mañana</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <h3 class="tl-title">Mercado Central de San Lorenzo</h3>
+          <p class="tl-desc">A dos pasos de la Academia. El mercado cubierto más antiguo de Florencia, con puestos de schiacciata recién horneada, pecorino toscano, prosciutto di Parma y el famoso lampredotto (si te atreves).</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">12:00<small>mediodía</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <h3 class="tl-title">Basílica de Santa Croce</h3>
+          <p class="tl-desc">La iglesia panteón de la genialidad italiana: aquí reposan Miguel Ángel, Galileo Galilei, Nicolás Maquiavelo y Dante Alighieri. Los frescos de Giotto en la Capilla Bardi son otro tesoro dentro del tesoro.</p>
+          <img class="tl-img" src="https://images.unsplash.com/photo-1560184897-ae75f418493e?w=600&q=80" alt="Santa Croce" loading="lazy">
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">13:30<small>tarde</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Mesa</span>
+          <h3 class="tl-title">Almuerzo</h3>
+          <p class="tl-desc">Pizza napoletana, pasta e fagioli, o un panino con lampredotto en el mercado cercano. Zona de Santa Croce, con muchas opciones auténticas y precios razonables.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">15:00<small>tarde</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Arte &amp; Naturaleza</span>
+          <h3 class="tl-title">Palazzo Pitti + Jardines de Bóboli</h3>
+          <p class="tl-desc">El palacio más grande de Florencia, antigua residencia de los Médici. Las galerías de arte incluyen Tiziano, Rafael y Rubens. Los Jardines de Bóboli — jardines renacentistas en terrazas con fuentes y vistas a la ciudad — son el pulmón verde de Florencia.</p>
+          <p class="tl-tip">→ Cruzar el Ponte Vecchio para llegar (15 min a pie desde Santa Croce)</p>
+          <img class="tl-img" src="https://images.unsplash.com/photo-1560969184-10fe8719e047?w=600&q=80" alt="Jardines de Bóboli" loading="lazy">
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">17:30<small>atardecer</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Momento especial</span>
+          <h3 class="tl-title">Piazzale Michelangelo</h3>
+          <p class="tl-desc">La mejor panorámica de Florencia. Desde aquí se ve todo: el Duomo, los puentes sobre el Arno, las colinas de la Toscana al fondo. En junio el sol cae tarde — el atardecer desde aquí es literalmente inolvidable.</p>
+          <p class="tl-tip">→ Subir en taxi o a pie desde Oltrarno (20 min)</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">20:30<small>noche</small></div>
+        <div class="tl-line-col"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <span class="tl-badge">Cena de celebración</span>
+          <h3 class="tl-title">Cena final en Oltrarno</h3>
+          <p class="tl-desc">De vuelta al barrio artesano de Florencia para la cena de cumpleaños. Bistecca fiorentina para compartir, panna cotta al vin santo de postre y una botella de Brunello di Montalcino para brindar por los cuarenta años más hermosos.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /trip-content -->
+
+<!-- ─── FOOTER ─── -->
 <footer>
   <p class="footer-heart">♥</p>
   <p class="footer-title">Feliz cumpleaños, Eva</p>
   <p class="footer-sub">???? te espera · ???? 2026</p>
 </footer>
 
+<!-- ─── WISH MODAL ─── -->
 <div class="modal-overlay" id="wish-modal" style="display:none">
   <div class="modal-card">
-    <button class="modal-close" id="modal-close" aria-label="Cerrar" type="button">×</button>
+    <button class="modal-close" id="modal-close" aria-label="Cerrar">×</button>
     <p class="form-title">Deja tu mensaje para Eva</p>
     <form id="wish-form" novalidate>
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="wish-name">Nombre</label>
-          <input class="form-input" id="wish-name" name="wish_name" type="text" placeholder="Tu nombre" required>
+          <input class="form-input" id="wish-name" type="text" placeholder="Tu nombre" required>
         </div>
         <div class="form-group">
           <label class="form-label" for="wish-email">Email</label>
-          <input class="form-input" id="wish-email" name="wish_email" type="email" placeholder="tu@email.com" required>
+          <input class="form-input" id="wish-email" type="email" placeholder="tu@email.com" required>
         </div>
       </div>
       <div class="form-group">
         <label class="form-label" for="wish-message">Mensaje</label>
-        <textarea class="form-textarea" id="wish-message" name="wish_message" placeholder="Escribe tu mensaje para Eva..." required></textarea>
+        <textarea class="form-textarea" id="wish-message" placeholder="Escribe tu mensaje para Eva..." required></textarea>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="wish-code">Código de invitación</label>
-          <input class="form-input" id="wish-code" name="wish_code" type="text" placeholder="Código" required>
+          <input class="form-input" id="wish-code" type="text" placeholder="Código" required>
         </div>
         <div class="form-group">
           <label class="form-file-label" for="wish-image">Foto <span>(opcional · máx 5 MB)</span></label>
-          <input id="wish-image" name="wish_image" type="file" accept="image/jpeg,image/png,image/webp">
+          <input id="wish-image" type="file" accept="image/jpeg,image/png,image/webp">
         </div>
       </div>
       <button class="btn-submit" type="submit">Enviar felicitación</button>
@@ -862,123 +890,106 @@ footer {
 
 <script>
 (function () {
+  /* ── Helpers ── */
   function esc(s) {
-    return String(s)
-      .replace(/&/g,'&amp;')
-      .replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;');
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
-
   function toBase64(file) {
     return new Promise(function (res, rej) {
       var r = new FileReader();
-      r.onload = function () {
-        res(r.result.split(',')[1]);
-      };
+      r.onload = function () { res(r.result.split(',')[1]); };
       r.onerror = rej;
       r.readAsDataURL(file);
     });
   }
 
+  /* ── Gift gate ── */
   var PASS = 'BluYNat';
-  var STORAGE_KEY = 'eva40-unlocked-memory';
+  var STORAGE_KEY = 'eva40-unlocked';
 
   function showTrip(animate) {
     document.getElementById('gift-gate').style.display = 'none';
-
     var trip = document.getElementById('trip-content');
-    var wishes = document.getElementById('wishes-section');
-
     trip.style.display = 'block';
-    wishes.style.display = 'block';
-
     if (animate) {
       trip.classList.add('revealed');
       trip.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
-  function openModal() {
-    var modal = document.getElementById('wish-modal');
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    document.getElementById('wish-name').focus();
+  function initGiftGate() {
+    if (localStorage.getItem(STORAGE_KEY) === '1') { showTrip(false); return; }
+
+    var input = document.getElementById('gift-password');
+    var btn   = document.getElementById('gift-btn');
+    var err   = document.getElementById('gift-error');
+    var gate  = document.getElementById('gift-gate');
+
+    function attempt() {
+      if (input.value === PASS) {
+        localStorage.setItem(STORAGE_KEY, '1');
+        gate.classList.add('opening');
+        setTimeout(function () { showTrip(true); }, 500);
+      } else {
+        err.textContent = 'Contraseña incorrecta — inténtalo de nuevo';
+        input.classList.add('shake');
+        input.value = '';
+        setTimeout(function () { input.classList.remove('shake'); }, 400);
+      }
+    }
+    btn.addEventListener('click', attempt);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); attempt(); }
+      err.textContent = '';
+    });
   }
 
+  /* ── Modal ── */
+  function openModal() {
+    document.getElementById('wish-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
   function closeModal() {
-    var modal = document.getElementById('wish-modal');
-    modal.style.display = 'none';
+    document.getElementById('wish-modal').style.display = 'none';
     document.body.style.overflow = '';
   }
 
+  /* ── Wishes ── */
   async function loadWishes() {
-    var grid = document.getElementById('wishes-grid');
-    var empty = document.getElementById('wishes-empty');
-
     try {
       var res = await fetch('/api/wishes');
-      if (!res.ok) throw new Error('No disponible');
-
+      if (!res.ok) return;
       var wishes = await res.json();
       renderWishes(Array.isArray(wishes) ? wishes : []);
-    } catch (e) {
-      renderWishes([]);
-    }
+    } catch (_) {}
   }
 
   function renderWishes(wishes) {
-    var grid = document.getElementById('wishes-grid');
+    var grid  = document.getElementById('wishes-grid');
     var empty = document.getElementById('wishes-empty');
-
-    if (!wishes.length) {
-      grid.innerHTML = '';
+    if (wishes.length === 0) {
       grid.style.display = 'none';
       empty.style.display = 'block';
       return;
     }
-
     empty.style.display = 'none';
     grid.style.display = 'grid';
-
     grid.innerHTML = wishes.map(function (w) {
-      var date = w.created_at
-        ? new Date(w.created_at).toLocaleDateString('es-ES', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          })
-        : '';
-
-      var img = w.image_url
-        ? '<img class="wish-photo" src="' + esc(w.image_url) + '" alt="' + esc(w.name || 'Foto') + '" loading="lazy">'
-        : '';
-
-      return (
-        '<div class="wish-card">' +
-          img +
-          '<div class="wish-body">' +
-            '<p class="wish-name">' + esc(w.name || 'Anónimo') + '</p>' +
-            '<p class="wish-message">' + esc(w.message || '') + '</p>' +
-            '<p class="wish-date">' + esc(date) + '</p>' +
-          '</div>' +
-        '</div>'
-      );
+      var date = new Date(w.created_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+      var img  = w.image_url ? '<img class="wish-photo" src="' + esc(w.image_url) + '" alt="' + esc(w.name) + '" loading="lazy">' : '';
+      return '<div class="wish-card">' + img + '<div class="wish-body"><p class="wish-name">' + esc(w.name) + '</p><p class="wish-message">' + esc(w.message) + '</p><p class="wish-date">' + date + '</p></div></div>';
     }).join('');
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    var form = e.target;
-    var btn = form.querySelector('.btn-submit');
-    var status = document.getElementById('form-status');
-
-    var name = form.wish_name.value.trim();
-    var email = form.wish_email.value.trim();
-    var message = form.wish_message.value.trim();
-    var code = form.wish_code.value.trim();
-    var fi = form.wish_image;
+    var form    = e.target;
+    var btn     = form.querySelector('.btn-submit');
+    var status  = document.getElementById('form-status');
+    var name    = form.querySelector('#wish-name').value.trim();
+    var email   = form.querySelector('#wish-email').value.trim();
+    var message = form.querySelector('#wish-message').value.trim();
+    var code    = form.querySelector('#wish-code').value.trim();
 
     if (!name || !email || !message || !code) {
       status.className = 'form-status error';
@@ -986,22 +997,16 @@ footer {
       return;
     }
 
-    var payload = {
-      name: name,
-      email: email,
-      message: message,
-      invite_code: code
-    };
-
-    if (fi.files && fi.files[0]) {
+    var payload = { name: name, email: email, message: message, invite_code: code };
+    var fi = form.querySelector('#wish-image');
+    if (fi.files[0]) {
       if (fi.files[0].size > 5 * 1024 * 1024) {
         status.className = 'form-status error';
         status.textContent = 'La imagen no puede superar los 5 MB.';
         return;
       }
-
       payload.image_base64 = await toBase64(fi.files[0]);
-      payload.image_type = fi.files[0].type;
+      payload.image_type   = fi.files[0].type;
     }
 
     btn.disabled = true;
@@ -1012,19 +1017,9 @@ footer {
       var res = await fetch('/api/wishes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
-
-      if (!res.ok) {
-        var errorData;
-        try {
-          errorData = await res.json();
-        } catch (_) {
-          errorData = {};
-        }
-        throw new Error(errorData.error || 'Error al enviar la felicitación');
-      }
-
+      if (!res.ok) { var er = await res.json(); throw new Error(er.error || 'Error desconocido'); }
       status.className = 'form-status ok';
       status.textContent = '¡Gracias! Tu mensaje ha sido enviado.';
       form.reset();
@@ -1032,84 +1027,25 @@ footer {
       setTimeout(closeModal, 1600);
     } catch (ex) {
       status.className = 'form-status error';
-      status.textContent = ex.message || 'Ha ocurrido un error.';
+      status.textContent = ex.message;
     } finally {
       btn.disabled = false;
     }
   }
 
-  function initGiftGate() {
-    var input = document.getElementById('gift-password');
-    var btn = document.getElementById('gift-btn');
-    var err = document.getElementById('gift-error');
-    var gate = document.getElementById('gift-gate');
-
-    var unlocked = false;
-
-    try {
-      unlocked = window.sessionStorage.getItem(STORAGE_KEY) === '1';
-    } catch (_) {
-      unlocked = false;
-    }
-
-    if (unlocked) {
-      showTrip(false);
-      loadWishes();
-      return;
-    }
-
-    function attempt() {
-      err.textContent = '';
-
-      if (input.value === PASS) {
-        try {
-          window.sessionStorage.setItem(STORAGE_KEY, '1');
-        } catch (_) {}
-
-        gate.classList.add('opening');
-
-        setTimeout(function () {
-          showTrip(true);
-          loadWishes();
-        }, 500);
-      } else {
-        err.textContent = 'Contraseña incorrecta — inténtalo de nuevo';
-        input.classList.add('shake');
-        input.value = '';
-        setTimeout(function () {
-          input.classList.remove('shake');
-        }, 400);
-      }
-    }
-
-    btn.addEventListener('click', attempt);
-
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        attempt();
-      }
-    });
-
-    input.addEventListener('input', function () {
-      err.textContent = '';
-    });
-  }
-
+  /* ── Init ── */
   document.addEventListener('DOMContentLoaded', function () {
     initGiftGate();
+    loadWishes();
 
     document.getElementById('add-wish-btn').addEventListener('click', openModal);
     document.getElementById('modal-close').addEventListener('click', closeModal);
-
     document.getElementById('wish-modal').addEventListener('click', function (e) {
       if (e.target === this) closeModal();
     });
-
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeModal();
     });
-
     document.getElementById('wish-form').addEventListener('submit', handleSubmit);
   });
 })();
