@@ -1000,7 +1000,7 @@ footer {
     var payload = { name: name, email: email, message: message, invite_code: code };
     var fi = form.querySelector('#wish-image');
     if (fi.files[0]) {
-      if (fi.files[0].size > 2 * 1024 * 1024) {
+      if (fi.files[0].size > 5 * 1024 * 1024) {
         status.className = 'form-status error';
         status.textContent = 'La imagen no puede superar los 2 MB.';
         return;
