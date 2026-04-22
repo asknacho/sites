@@ -633,19 +633,6 @@ footer {
   <img class="couple-photo" src="images/hero.jpg" alt="Eva y yo">
 </div>
 
-<!-- ─── INTRO ─── -->
-<div class="intro">
-  <p class="intro-eyebrow">Un regalo para los 40 más bellos</p>
-  <h1 class="intro-title">Cuarenta es el tiempo justo</h1>
-  <p class="intro-body">
-    Cuarenta años es la edad en que la vida empieza a saber a algo.
-    He elegido la ciudad más hermosa del mundo para celebrarlo contigo —
-    entre frescos, pasta recién hecha y el Arno al atardecer.
-    Salimos desde Barcelona en junio, en cuanto confirmemos las fechas.
-  </p>
-  <p class="intro-sig">Con todo mi amor</p>
-</div>
-
 <!-- ─── WISHES ─── -->
 <section class="wishes-section">
   <div class="wishes-header">
@@ -675,6 +662,20 @@ footer {
 
 <!-- ─── TRIP CONTENT (hidden until unlocked) ─── -->
 <div id="trip-content" style="display:none">
+
+<!-- ─── INTRO ─── -->
+<div class="intro">
+  <p class="dates-notice">✈ Barcelona → Florencia &nbsp;·&nbsp; Fechas por confirmar — el itinerario se ajustará</p>
+  <p class="intro-eyebrow">Un regalo para los 40 más bellos</p>
+  <h1 class="intro-title">Quaranta anni en Firenze</h1>
+  <p class="intro-body">
+    Cuarenta años es la edad en que la vida empieza a saber a algo.
+    He elegido la ciudad más hermosa del mundo para celebrarlo contigo —
+    entre frescos, pasta recién hecha y el Arno al atardecer.
+    Salimos desde Barcelona en junio, en cuanto confirmemos las fechas.
+  </p>
+  <p class="intro-sig">Con todo mi amor</p>
+</div>
 
 <!-- ─── DAY 1 ─── -->
 <div class="page-container">
@@ -905,21 +906,16 @@ footer {
 
   /* ── Gift gate ── */
   var PASS = 'BluYNat';
-  var STORAGE_KEY = 'eva40-unlocked';
 
-  function showTrip(animate) {
+  function showTrip() {
     document.getElementById('gift-gate').style.display = 'none';
     var trip = document.getElementById('trip-content');
     trip.style.display = 'block';
-    if (animate) {
-      trip.classList.add('revealed');
-      trip.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    trip.classList.add('revealed');
+    trip.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function initGiftGate() {
-    if (localStorage.getItem(STORAGE_KEY) === '1') { showTrip(false); return; }
-
     var input = document.getElementById('gift-password');
     var btn   = document.getElementById('gift-btn');
     var err   = document.getElementById('gift-error');
@@ -927,9 +923,8 @@ footer {
 
     function attempt() {
       if (input.value === PASS) {
-        localStorage.setItem(STORAGE_KEY, '1');
         gate.classList.add('opening');
-        setTimeout(function () { showTrip(true); }, 500);
+        setTimeout(showTrip, 500);
       } else {
         err.textContent = 'Contraseña incorrecta — inténtalo de nuevo';
         input.classList.add('shake');
@@ -1033,21 +1028,19 @@ footer {
     }
   }
 
-  /* ── Init ── */
-  document.addEventListener('DOMContentLoaded', function () {
-    initGiftGate();
-    loadWishes();
+  /* ── Init (script is at end of body — DOM already ready) ── */
+  initGiftGate();
+  loadWishes();
 
-    document.getElementById('add-wish-btn').addEventListener('click', openModal);
-    document.getElementById('modal-close').addEventListener('click', closeModal);
-    document.getElementById('wish-modal').addEventListener('click', function (e) {
-      if (e.target === this) closeModal();
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') closeModal();
-    });
-    document.getElementById('wish-form').addEventListener('submit', handleSubmit);
+  document.getElementById('add-wish-btn').addEventListener('click', openModal);
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('wish-modal').addEventListener('click', function (e) {
+    if (e.target === this) closeModal();
   });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeModal();
+  });
+  document.getElementById('wish-form').addEventListener('submit', handleSubmit);
 })();
 </script>
 </body>
